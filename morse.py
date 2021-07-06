@@ -4,38 +4,40 @@ import time
 
 PyAudio = pyaudio.PyAudio
 
-BITRATE = 128000    
+message = "hello"
 
-FREQUENCY = 1900
-LENGTH = 1
+bitrate = 128000    
+
+freq = 1900
+length = 1
 
 def split(word):
     return [char for char in word]
 
-def beep(detail, BITRATE):
-    FREQUENCY = detail[0]
-    LENGTH = detail[1]
-    if FREQUENCY > BITRATE:
-        BITRATE = FREQUENCY+100
+def beep(detail, bitrate):
+    freq = detail[0]
+    length = detail[1]
+    if freq > bitrate:
+        bitrate = freq+100
 
-    NUMBEROFFRAMES = int(BITRATE * LENGTH)
-    RESTFRAMES = NUMBEROFFRAMES % BITRATE
-    WAVEDATA = ''    
+    frames = int(bitrate * length)
+    rframes = frames % bitrate
+    wavedata = ''    
 
     #generating wawes
-    for x in range(NUMBEROFFRAMES):
-        WAVEDATA = WAVEDATA+chr(int(math.sin(x/((BITRATE/FREQUENCY)/math.pi))*127+128))    
+    for x in range(frames):
+        wavedata = wavedata+chr(int(math.sin(x/((bitrate/freq)/math.pi))*127+128))    
 
-    for x in range(RESTFRAMES): 
-        WAVEDATA = WAVEDATA+chr(128)
+    for x in range(rframes): 
+        wavedata = wavedata+chr(128)
 
     p = PyAudio()
     stream = p.open(format = p.get_format_from_width(1), 
                     channels = 1, 
-                    rate = BITRATE, 
+                    rate = bitrate, 
                     output = True)
 
-    stream.write(WAVEDATA)
+    stream.write(wavedata)
     stream.stop_stream()
     stream.close()
     p.terminate()
@@ -83,10 +85,9 @@ def morse(letter):
                 print("Playing '" + letter + "'")
 
             for item in value:
-                beep(item, BITRATE)
+                beep(item, bitrate)
                 time.sleep(0.2)
 
-message = "hello"
 
 print("Message:", message)
 for letter in split(message):
