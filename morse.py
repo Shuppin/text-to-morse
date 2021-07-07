@@ -4,12 +4,7 @@ import time
 
 PyAudio = pyaudio.PyAudio
 
-message = "hello"
-
 bitrate = 128000    
-
-freq = 1900
-length = 1
 
 def split(word):
     return [char for char in word]
@@ -67,7 +62,7 @@ def morse(letter):
     "q": [dash, dash, dot, dash],
     "r": [dot, dash, dot],
     "s": [dot, dot, dot],
-    "t": [dot],
+    "t": [dash],
     "u": [dot, dot, dash],
     "v": [dot, dot, dot, dash],
     "w": [dot, dash, dash],
@@ -98,7 +93,7 @@ def morse(letter):
                 beep(item, bitrate)
                 time.sleep(0.2)
 
-print("Message:", message)
-for letter in split(message):
-    morse(letter.lower())
+#print("Message:", message)
+#for letter in split(message):
+#    morse(letter.lower())
 
