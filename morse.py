@@ -92,5 +92,8 @@ def morse(letter):
             for item in value:
                 beep(item, bitrate)
                 time.sleep(0.2)
+        else:
+            print("Invalid character")
+            break
 
-
+morse("]")
