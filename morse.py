@@ -93,7 +93,4 @@ def morse(letter):
                 beep(item, bitrate)
                 time.sleep(0.2)
 
-#print("Message:", message)
-#for letter in split(message):
-#    morse(letter.lower())
 
